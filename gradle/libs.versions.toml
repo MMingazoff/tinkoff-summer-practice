@@ -1,7 +1,9 @@
 [versions]
 coil = "2.3.0"
 com-android-application = "8.1.0-alpha11"
-hilt-work = "1.0.0"
+hilt-compiler = "2.44"
+hilt-android = "2.44"
+hilt-navigation-compose = "1.0.0"
 insert-koin-koin-androidx-compose = "3.4.0"
 koin-android = "3.4.0"
 kotlinx-collections-immutable = "0.3.5"
@@ -30,8 +32,7 @@ room-runtime = "2.5.2"
 work-runtime-ktx = "2.8.1"
 
 [libraries]
-androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-work" }
-androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt-work" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-ktx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle-runtime-ktx" }
 androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
@@ -45,6 +46,8 @@ coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt-compiler" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }

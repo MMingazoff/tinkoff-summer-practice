@@ -6,10 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.navigation.compose.rememberNavController
+import com.itis.tinkoff.ui.navigation.AppGraph
 import com.itis.tinkoff.ui.theme.base.Theme
 import com.itis.tinkoff.ui.theme.settings.LocalSettingsEventBus
 import com.itis.tinkoff.ui.theme.settings.SettingsEventBus
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,15 +23,13 @@ class MainActivity : ComponentActivity() {
             val currentSettings = settingsEventBus.currentSettings.collectAsState().value
 
             Theme(
-                style = currentSettings.style,
                 darkTheme = currentSettings.isDarkMode,
-                corners = currentSettings.cornerStyle,
                 textSize = currentSettings.textSize,
-                paddingSize = currentSettings.paddingSize
             ) {
                 CompositionLocalProvider(
                     LocalSettingsEventBus provides settingsEventBus
                 ) {
+                    AppGraph(rememberNavController())
                 }
             }
         }

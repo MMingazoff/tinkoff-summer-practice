@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.dagger.hilt.android")
+    id("io.gitlab.arturbosch.detekt")
     id("kotlin-kapt")
 }
 
@@ -89,8 +91,10 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     // Hilt
-    implementation(libs.androidx.hilt.work)
-    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
 
     // Coroutines
     implementation(libs.lifecycle.runtime.ktx)

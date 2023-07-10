@@ -2,7 +2,6 @@ package com.itis.tinkoff.ui.theme.base
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
@@ -11,40 +10,19 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 
 @Composable
 fun Theme(
-    style: Style = Style.Purple,
     textSize: Size = Size.Medium,
-    paddingSize: Size = Size.Medium,
-    corners: Corners = Corners.Rounded,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = when {
-        darkTheme -> {
-            when (style) {
-                Style.Purple -> purpleDarkPalette
-                Style.Blue -> blueDarkPalette
-                Style.Orange -> orangeDarkPalette
-                Style.Red -> redDarkPalette
-                Style.Green -> greenDarkPalette
-            }
-        }
-
-        else -> {
-            when (style) {
-                Style.Purple -> purpleLightPalette
-                Style.Blue -> blueLightPalette
-                Style.Orange -> orangeLightPalette
-                Style.Red -> redLightPalette
-                Style.Green -> greenLightPalette
-            }
-        }
-    }
+    val colors = if (darkTheme)
+        darkPalette
+    else
+        lightPalette
 
     val typography = Typography(
         heading = TextStyle(
@@ -55,6 +33,7 @@ fun Theme(
             },
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Monospace,
+            color = colors.primaryText,
         ),
         body = TextStyle(
             fontSize = when (textSize) {
@@ -62,43 +41,34 @@ fun Theme(
                 Size.Medium -> 16.sp
                 Size.Big -> 18.sp
             },
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Normal,
+            color = colors.primaryText,
         ),
         toolbar = TextStyle(
             fontFamily = FontFamily.Monospace,
             fontSize = when (textSize) {
-                Size.Small -> 14.sp
-                Size.Medium -> 16.sp
-                Size.Big -> 18.sp
+                Size.Small -> 30.sp
+                Size.Medium -> 32.sp
+                Size.Big -> 34.sp
             },
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Black,
+            color = colors.primaryText,
         ),
         caption = TextStyle(
             fontSize = when (textSize) {
                 Size.Small -> 10.sp
                 Size.Medium -> 12.sp
                 Size.Big -> 14.sp
-            }
+            },
+            color = colors.primaryText,
         )
-    )
-
-    val shapes = Shape(
-        padding = when (paddingSize) {
-            Size.Small -> 12.dp
-            Size.Medium -> 16.dp
-            Size.Big -> 20.dp
-        },
-        cornersStyle = when (corners) {
-            Corners.Flat -> RoundedCornerShape(0.dp)
-            Corners.Rounded -> RoundedCornerShape(8.dp)
-        }
     )
 
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colors.tintColor.toArgb()
+            window.statusBarColor = colors.toolbarColor.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
@@ -106,7 +76,6 @@ fun Theme(
     CompositionLocalProvider(
         LocalColors provides colors,
         LocalTypography provides typography,
-        LocalShape provides shapes,
         content = content
     )
 }
