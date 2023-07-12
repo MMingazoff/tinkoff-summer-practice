@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -50,19 +52,23 @@ private fun BalanceContent(
 ) {
     Column(modifier = Modifier.padding(top = 56.dp)) {
         Row(
-            modifier = Modifier
-                .height(46.dp)
+            modifier = Modifier.height(56.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             var balance by rememberSaveable { mutableStateOf("") }
-            // todo: make inputtype numbers
+            var isError by rememberSaveable { mutableStateOf(false) }
             CustomTextField(
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 8.dp),
                 value = balance,
-                label = R.string.amount
+                label = R.string.amount,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                showError = isError,
+                errorMessage = "Invalid number"
             ) {
                 balance = it
+                if (isError) isError = false
             }
             DoneButton(
                 modifier = Modifier
@@ -71,7 +77,11 @@ private fun BalanceContent(
                 text = R.string.top_up,
                 isLoading = state.isToppingUp
             ) {
-                eventHandler(BalanceEvent.TopUp(balance.toInt()))
+                try {
+                    eventHandler(BalanceEvent.TopUp(balance.toInt()))
+                } catch (e: NumberFormatException) {
+                    isError = true
+                }
             }
         }
         Box(modifier = Modifier.fillMaxSize()) {

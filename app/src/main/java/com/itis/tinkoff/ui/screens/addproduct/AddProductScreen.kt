@@ -119,7 +119,6 @@ fun ImagePicker(
             uri?.let { eventHandler(AddProductEvent.SetUri(it)) }
         }
 
-
     state.photoUri?.let {
         Image(
             painter = rememberAsyncImagePainter(model = it),

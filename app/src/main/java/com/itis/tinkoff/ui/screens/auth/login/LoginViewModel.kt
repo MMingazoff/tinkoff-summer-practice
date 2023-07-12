@@ -1,8 +1,8 @@
 package com.itis.tinkoff.ui.screens.auth.login
 
 import androidx.lifecycle.viewModelScope
-import com.itis.android.ui.base.BaseViewModel
 import com.itis.tinkoff.domain.usecases.LogInUseCase
+import com.itis.tinkoff.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,6 +22,7 @@ class LoginViewModel @Inject constructor(
                             state { copy(isLoading = false) }
                             action { LoginAction.Navigate(role = it) }
                         }
+                        .onFailure { state { copy(showError = true, isLoading = false) } }
                 }
             }
         }

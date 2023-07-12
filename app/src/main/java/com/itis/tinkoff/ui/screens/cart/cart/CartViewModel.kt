@@ -1,12 +1,12 @@
 package com.itis.tinkoff.ui.screens.cart.cart
 
 import androidx.lifecycle.viewModelScope
-import com.itis.android.ui.base.BaseViewModel
 import com.itis.tinkoff.domain.models.CartProductModel
 import com.itis.tinkoff.domain.usecases.AddToCartUseCase
 import com.itis.tinkoff.domain.usecases.GetCartUseCase
 import com.itis.tinkoff.domain.usecases.RemoveAllFromCartUseCase
 import com.itis.tinkoff.domain.usecases.RemoveFromCartUseCase
+import com.itis.tinkoff.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,11 +29,9 @@ class CartViewModel @Inject constructor(
                 viewModelScope.launch {
                     removeFromCartUseCase(event.productId)
                         .onSuccess {
-                            state {
-                                copy(
-                                    cartProducts = cartProducts
-                                        .setNewQuantity(event.productId, it)
-                                )
+                            viewModelScope.launch {
+                                getCartUseCase()
+                                    .onSuccess { state { copy(cartProducts = it) } }
                             }
                         }
                         .onFailure { }
@@ -44,11 +42,9 @@ class CartViewModel @Inject constructor(
                 viewModelScope.launch {
                     addToCartUseCase(event.productId)
                         .onSuccess {
-                            state {
-                                copy(
-                                    cartProducts = cartProducts
-                                        .setNewQuantity(event.productId, it)
-                                )
+                            viewModelScope.launch {
+                                getCartUseCase()
+                                    .onSuccess { state { copy(cartProducts = it) } }
                             }
                         }
                         .onFailure { }
@@ -59,8 +55,9 @@ class CartViewModel @Inject constructor(
                 viewModelScope.launch {
                     removeAllFromCartUseCase(event.productId)
                         .onSuccess {
-                            state {
-                                copy(cartProducts = cartProducts.removeProduct(event.productId))
+                            viewModelScope.launch {
+                                getCartUseCase()
+                                    .onSuccess { state { copy(cartProducts = it) } }
                             }
                         }
                         .onFailure { }

@@ -1,4 +1,4 @@
-package com.itis.android.ui.base
+package com.itis.tinkoff.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

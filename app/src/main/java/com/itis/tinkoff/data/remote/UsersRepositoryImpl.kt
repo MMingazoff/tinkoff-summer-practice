@@ -1,21 +1,39 @@
 package com.itis.tinkoff.data.remote
 
+import com.itis.tinkoff.data.remote.datasource.Data
 import com.itis.tinkoff.domain.models.ProfileModel
 import com.itis.tinkoff.domain.models.User
+import com.itis.tinkoff.domain.models.UserModel
 import com.itis.tinkoff.domain.repositories.UsersRepository
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class UsersRepositoryImpl @Inject constructor() : UsersRepository {
 
-    override suspend fun getBalance(): Int = 10000
+    override suspend fun getBalance(): Int = Data.currentUser?.balance ?: 0
 
     override suspend fun topUp(amount: Int) {
-        delay(2000L)
+        Data.currentUser?.balance = Data.currentUser?.balance?.plus(amount) ?: 0
     }
 
     override suspend fun getProfile(): ProfileModel =
-        ProfileModel(name = "marat", email = "nice@nice")
+        ProfileModel(name = Data.currentUser?.name ?: "", email = Data.currentUser?.email ?: "")
 
-    override suspend fun logIn(username: String, password: String): User = User.CUSTOMER
+    override suspend fun logIn(username: String, password: String): User {
+        val user = Data.users.find { it.name == username } ?: error("")
+        check(user.password == password)
+        Data.currentUser = user
+        return user.role
+    }
+
+    override suspend fun register(email: String, username: String, password: String, role: User) {
+        Data.users.add(
+            UserModel(
+                email = email,
+                name = username,
+                password = password,
+                balance = 0,
+                role = role
+            )
+        )
+    }
 }

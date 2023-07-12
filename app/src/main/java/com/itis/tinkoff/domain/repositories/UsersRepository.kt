@@ -12,4 +12,6 @@ interface UsersRepository {
     suspend fun getProfile(): ProfileModel
 
     suspend fun logIn(username: String, password: String): User
+
+    suspend fun register(email: String, username: String, password: String, role: User)
 }

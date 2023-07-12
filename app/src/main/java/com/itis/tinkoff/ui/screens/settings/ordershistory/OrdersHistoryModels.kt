@@ -1,8 +1,6 @@
 package com.itis.tinkoff.ui.screens.settings.ordershistory
 
-sealed interface OrdersHistoryAction {
-
-}
+sealed interface OrdersHistoryAction
 
 sealed interface OrdersHistoryEvent {
 

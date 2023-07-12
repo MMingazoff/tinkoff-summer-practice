@@ -1,9 +1,9 @@
 package com.itis.tinkoff.ui.screens.settings.balance
 
 import androidx.lifecycle.viewModelScope
-import com.itis.android.ui.base.BaseViewModel
 import com.itis.tinkoff.domain.usecases.GetBalanceUseCase
 import com.itis.tinkoff.domain.usecases.TopUpUseCase
+import com.itis.tinkoff.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

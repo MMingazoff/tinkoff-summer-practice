@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
@@ -22,6 +24,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.itis.tinkoff.R
+import com.itis.tinkoff.ui.base.Toolbar
 import com.itis.tinkoff.ui.base.cachingImage
 import com.itis.tinkoff.ui.theme.base.Theme
 
@@ -35,7 +38,10 @@ fun DetailsScreen(
     productId?.let { viewModel.event(DetailsEvent.LoadProduct(it)) }
 
     Surface(color = Theme.colors.primaryBackground, modifier = Modifier.fillMaxHeight()) {
-        DetailsContent(state = state.value, eventHandler = viewModel::event)
+        Column {
+            Toolbar(text = R.string.order_details)
+            DetailsContent(state = state.value, eventHandler = viewModel::event)
+        }
     }
 }
 
@@ -44,7 +50,7 @@ private fun DetailsContent(
     state: DetailsState,
     eventHandler: (DetailsEvent) -> Unit,
 ) {
-    Column {
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         AsyncImage(
             model = cachingImage(url = state.product?.photo),
             contentDescription = null,

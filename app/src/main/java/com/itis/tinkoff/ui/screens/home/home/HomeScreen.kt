@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -95,6 +96,7 @@ private fun HomeContent(
 
     Column {
         SearchBar(viewModel = viewModel)
+        Spacer(modifier = Modifier.height(4.dp))
         ExtendedFloatingActionButton(
             modifier = Modifier
                 .height(40.dp)
@@ -106,7 +108,7 @@ private fun HomeContent(
             containerColor = Theme.colors.tintColor,
             contentColor = Theme.colors.onTintColor,
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         if (state.isLoading) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 CircularProgressIndicator(
@@ -138,7 +140,8 @@ private fun Product(product: ProductModel, onClick: (ProductModel) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .height(200.dp)
+            .wrapContentHeight()
+            .clip(RoundedCornerShape(8.dp))
             .clickable {
                 onClick(product)
             },
@@ -160,10 +163,11 @@ private fun Product(product: ProductModel, onClick: (ProductModel) -> Unit) {
                 color = Theme.colors.primaryText,
                 style = Theme.typography.body
             )
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = product.price.toString(),
                 color = Theme.colors.primaryText,
-                style = Theme.typography.caption
+                style = Theme.typography.body,
             )
         }
     }
@@ -287,7 +291,8 @@ private fun PriceRangeSlider(
         modifier = modifier,
         value = values,
         onValueChange = onPriceRangeChanged,
-        valueRange = 1f..10000000f,
+        // TODO change max
+        valueRange = 1f..10_000_000f,
     )
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
         Text(
@@ -336,7 +341,7 @@ private fun Chip(
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
         colors = ButtonDefaults.textButtonColors(
             containerColor = if (isSelected) Theme.colors.tintColor else Theme.colors.secondaryBackground,
-            contentColor = Theme.colors.primaryText
+            contentColor = if (isSelected) Theme.colors.onTintColor else Theme.colors.primaryText
         ),
         shape = RoundedCornerShape(16.dp),
         onClick = {

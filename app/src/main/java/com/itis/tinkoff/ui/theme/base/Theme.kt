@@ -47,9 +47,9 @@ fun Theme(
         toolbar = TextStyle(
             fontFamily = FontFamily.Monospace,
             fontSize = when (textSize) {
-                Size.Small -> 30.sp
-                Size.Medium -> 32.sp
-                Size.Big -> 34.sp
+                Size.Small -> 22.sp
+                Size.Medium -> 24.sp
+                Size.Big -> 26.sp
             },
             fontWeight = FontWeight.Black,
             color = colors.primaryText,

@@ -1,8 +1,6 @@
 package com.itis.tinkoff.ui.screens.cart.cart
 
-sealed interface CartAction {
-
-}
+sealed interface CartAction
 
 sealed interface CartEvent {
 

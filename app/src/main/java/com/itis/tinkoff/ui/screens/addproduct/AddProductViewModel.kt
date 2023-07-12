@@ -3,8 +3,8 @@ package com.itis.tinkoff.ui.screens.addproduct
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
-import com.itis.android.ui.base.BaseViewModel
 import com.itis.tinkoff.domain.usecases.AddProductUseCase
+import com.itis.tinkoff.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
@@ -35,7 +35,7 @@ class AddProductViewModel @Inject constructor(
                             event.name,
                             event.description,
                             event.price,
-                            uri.prepareFilePart(context)
+                            uri.path ?: "",
                         ).onSuccess { state { copy(isAdding = false, showDialog = true) } }
                     }
                 }

@@ -1,7 +1,6 @@
 package com.itis.tinkoff.domain.usecases
 
 import com.itis.tinkoff.domain.repositories.ProductsManagingRepository
-import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class AddProductUseCase @Inject constructor(
@@ -12,6 +11,6 @@ class AddProductUseCase @Inject constructor(
         name: String,
         description: String,
         price: Int,
-        photo: MultipartBody.Part
+        photo: String,
     ) = runCatching { repository.add(name, description, price, photo) }
 }

@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.androidx.work.runtime.ktx)
+    implementation("androidx.compose.material:material-icons-extended:1.4.3")
 
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

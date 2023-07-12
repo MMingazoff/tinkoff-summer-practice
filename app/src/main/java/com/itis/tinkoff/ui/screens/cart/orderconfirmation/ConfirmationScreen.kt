@@ -43,7 +43,6 @@ import com.itis.tinkoff.ui.base.DoneButton
 import com.itis.tinkoff.ui.base.Toolbar
 import com.itis.tinkoff.ui.base.cachingImage
 import com.itis.tinkoff.ui.navigation.SettingsScreen
-import com.itis.tinkoff.ui.navigation.popUpToFirst
 import com.itis.tinkoff.ui.theme.base.Theme
 
 @Composable
@@ -158,7 +157,7 @@ private fun OrderPricing(state: ConfirmationState) {
             color = Theme.colors.primaryText,
             style = Theme.typography.heading
         )
-        val productsPrice = state.cartProducts.sumOf { it.price }
+        val productsPrice = state.cartProducts.sumOf { it.product.price * it.quantity }
         Column(modifier = Modifier.padding(horizontal = 8.dp)) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Text(
@@ -219,7 +218,7 @@ private fun CartProduct(product: CartProductModel) {
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
             AsyncImage(
-                model = cachingImage(url = product.photo),
+                model = cachingImage(url = product.product.photo),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxHeight()
@@ -231,12 +230,12 @@ private fun CartProduct(product: CartProductModel) {
                     .padding(horizontal = 16.dp),
             ) {
                 Text(
-                    text = product.name,
+                    text = product.product.name,
                     color = Theme.colors.primaryText,
                     style = Theme.typography.body
                 )
                 Text(
-                    text = product.price.toString(),
+                    text = product.product.price.toString(),
                     color = Theme.colors.primaryText,
                     style = Theme.typography.caption
                 )
@@ -265,9 +264,8 @@ private fun ConfirmationActions(
         when (action) {
             null -> Unit
             is ConfirmationAction.Navigate -> {
-                navController.navigate(SettingsScreen.OrderDetails.createRoute(action.orderId)) {
-                    popUpToFirst(navController)
-                }
+                navController.popBackStack()
+                navController.navigate(SettingsScreen.OrderDetails.createRoute(action.orderId))
             }
         }
     }

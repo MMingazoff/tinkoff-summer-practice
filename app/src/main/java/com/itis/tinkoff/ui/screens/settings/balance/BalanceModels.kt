@@ -1,8 +1,6 @@
 package com.itis.tinkoff.ui.screens.settings.balance
 
-sealed interface BalanceAction {
-
-}
+sealed interface BalanceAction
 
 sealed interface BalanceEvent {
 

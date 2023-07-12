@@ -2,10 +2,7 @@ package com.itis.tinkoff.ui.screens.settings.orderdetails
 
 import com.itis.tinkoff.domain.models.OrderItemModel
 
-
-sealed interface OrderDetailsAction {
-
-}
+sealed interface OrderDetailsAction
 
 sealed interface OrderDetailsEvent {
 

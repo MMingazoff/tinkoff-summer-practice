@@ -1,10 +1,10 @@
 package com.itis.tinkoff.ui.screens.cart.orderconfirmation
 
 import androidx.lifecycle.viewModelScope
-import com.itis.android.ui.base.BaseViewModel
 import com.itis.tinkoff.domain.usecases.GetCartUseCase
 import com.itis.tinkoff.domain.usecases.GetProfileUseCase
 import com.itis.tinkoff.domain.usecases.PlaceOrderUseCase
+import com.itis.tinkoff.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

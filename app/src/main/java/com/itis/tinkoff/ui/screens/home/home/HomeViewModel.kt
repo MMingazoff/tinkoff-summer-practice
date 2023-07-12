@@ -1,10 +1,10 @@
 package com.itis.tinkoff.ui.screens.home.home
 
 import androidx.lifecycle.viewModelScope
-import com.itis.android.ui.base.BaseViewModel
 import com.itis.tinkoff.domain.usecases.GetCategoriesUseCase
 import com.itis.tinkoff.domain.usecases.GetProductsUseCase
 import com.itis.tinkoff.domain.usecases.GetSellersUseCase
+import com.itis.tinkoff.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview

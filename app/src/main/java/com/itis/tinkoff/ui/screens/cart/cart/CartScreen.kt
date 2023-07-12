@@ -121,7 +121,7 @@ private fun CartProduct(
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
             AsyncImage(
-                model = cachingImage(url = product.photo),
+                model = cachingImage(url = product.product.photo),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxHeight()
@@ -129,29 +129,20 @@ private fun CartProduct(
             )
             Column(
                 modifier = Modifier
-                    .height(56.dp)
+                    .wrapContentHeight()
                     .padding(horizontal = 16.dp),
             ) {
                 Text(
-                    text = product.name,
+                    text = product.product.name,
                     color = Theme.colors.primaryText,
                     style = Theme.typography.body
                 )
                 Text(
-                    text = product.price.toString(),
+                    text = product.product.price.toString(),
                     color = Theme.colors.primaryText,
                     style = Theme.typography.caption
                 )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-            ) {
-                Row(
-                    modifier = Modifier.align(Alignment.BottomEnd),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Filled.Clear,
                         contentDescription = null,
@@ -179,6 +170,13 @@ private fun CartProduct(
                     )
                 }
             }
+            /*Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            ) {
+
+            }*/
         }
     }
 }

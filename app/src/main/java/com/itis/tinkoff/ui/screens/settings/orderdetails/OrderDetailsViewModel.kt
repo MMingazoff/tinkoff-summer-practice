@@ -1,11 +1,11 @@
 package com.itis.tinkoff.ui.screens.settings.orderdetails
 
 import androidx.lifecycle.viewModelScope
-import com.itis.android.ui.base.BaseViewModel
 import com.itis.tinkoff.domain.models.OrderItemModel
 import com.itis.tinkoff.domain.usecases.CancelOrderItemUseCase
 import com.itis.tinkoff.domain.usecases.EditDeliveryAddressUseCase
 import com.itis.tinkoff.domain.usecases.GetOrderUseCase
+import com.itis.tinkoff.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -60,4 +60,6 @@
     <string name="product_add_title">Your product has been added!</string>
     <string name="product_details">Product details</string>
     <string name="order_date">Order date: </string>
+    <string name="password_mismatch">Passwords are not equal</string>
+    <string name="login_error">Something went wrong. Recheck your login and password</string>
 </resources>

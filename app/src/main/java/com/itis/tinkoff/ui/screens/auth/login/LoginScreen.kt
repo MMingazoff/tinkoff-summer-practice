@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -65,15 +66,33 @@ private fun LoginContent(
     eventHandler: (LoginEvent) -> Unit,
 ) {
     var username by rememberSaveable { mutableStateOf("") }
+    var showUsernameError by rememberSaveable { mutableStateOf(false) }
     var password by rememberSaveable { mutableStateOf("") }
+    var showPasswordError by rememberSaveable { mutableStateOf(false) }
     Box(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.align(Alignment.Center)) {
-            CustomTextField(value = username, label = R.string.username_label) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CustomTextField(
+                value = username,
+                label = R.string.username_label,
+                showError = showUsernameError,
+            ) {
                 username = it
+                if (showUsernameError) showUsernameError = false
             }
             Spacer(modifier = Modifier.height(8.dp))
-            CustomTextField(value = password, label = R.string.password_label) {
+            CustomTextField(
+                value = password,
+                label = R.string.password_label,
+                showError = showPasswordError,
+                isPassword = true,
+            ) {
                 password = it
+                if (showPasswordError) showPasswordError = false
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row {
@@ -88,6 +107,13 @@ private fun LoginContent(
                     }
                 )
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            if (state.showError)
+                Text(
+                    text = stringResource(id = R.string.login_error),
+                    style = Theme.typography.caption,
+                    color = Theme.colors.errorColor
+                )
         }
         DoneButton(
             modifier = Modifier
@@ -96,8 +122,13 @@ private fun LoginContent(
             text = R.string.login,
             isLoading = state.isLoading
         ) {
-            if (!state.isLoading)
-                eventHandler(LoginEvent.LogIn(username, password))
+            if (!state.isLoading) {
+                if (username.isEmpty()) showUsernameError = true
+                if (password.isEmpty()) showPasswordError = true
+
+                if (username.isNotEmpty() && password.isNotEmpty())
+                    eventHandler(LoginEvent.LogIn(username, password))
+            }
         }
     }
 }

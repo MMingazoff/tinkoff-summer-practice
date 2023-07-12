@@ -2,7 +2,6 @@ package com.itis.tinkoff.ui.screens.addproduct
 
 import android.net.Uri
 
-
 sealed interface AddProductAction {
 
     object ShowDialog : AddProductAction
