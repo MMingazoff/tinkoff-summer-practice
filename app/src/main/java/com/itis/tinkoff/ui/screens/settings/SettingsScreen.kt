@@ -30,8 +30,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.itis.tinkoff.R
+import com.itis.tinkoff.data.remote.datasource.Data
+import com.itis.tinkoff.ui.base.DoneButton
 import com.itis.tinkoff.ui.base.Toolbar
 import com.itis.tinkoff.ui.navigation.SettingsScreen
+import com.itis.tinkoff.ui.navigation.authGraphRoute
 import com.itis.tinkoff.ui.theme.base.Theme
 import com.itis.tinkoff.ui.theme.settings.LocalSettingsEventBus
 
@@ -60,6 +63,15 @@ fun SettingsScreen(
                 ThemeSwitcher(isDarkTheme = currentSettings.isDarkMode) { isDarkTheme ->
                     settingsEventBus.updateDarkMode(isDarkTheme)
                 }
+            }
+            DoneButton(
+                text = R.string.logout,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.BottomCenter)
+            ) {
+                Data.currentUser = null
+                navController.navigate(authGraphRoute)
             }
         }
     }

@@ -78,7 +78,15 @@ class HomeViewModel @Inject constructor(
                             getSelectedSellersIds(),
                             event.priceRange
                         )
-                            .onSuccess { state { copy(products = it, isLoading = false) } }
+                            .onSuccess {
+                                state {
+                                    copy(
+                                        products = it,
+                                        filteredProducts = it,
+                                        isLoading = false
+                                    )
+                                }
+                            }
                             .onFailure { state { copy(isLoading = false) } }
                     }
                 }

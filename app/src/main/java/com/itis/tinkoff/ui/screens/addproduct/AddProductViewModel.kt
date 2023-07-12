@@ -36,7 +36,15 @@ class AddProductViewModel @Inject constructor(
                             event.description,
                             event.price,
                             uri.path ?: "",
-                        ).onSuccess { state { copy(isAdding = false, showDialog = true) } }
+                        ).onSuccess {
+                            state {
+                                copy(
+                                    isAdding = false,
+                                    showDialog = true,
+                                    photoUri = null
+                                )
+                            }
+                        }
                     }
                 }
             }

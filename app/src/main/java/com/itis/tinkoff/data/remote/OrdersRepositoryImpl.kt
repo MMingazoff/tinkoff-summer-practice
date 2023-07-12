@@ -6,6 +6,7 @@ import com.itis.tinkoff.domain.models.CartProductModel
 import com.itis.tinkoff.domain.models.OrderItemModel
 import com.itis.tinkoff.domain.models.OrderModel
 import com.itis.tinkoff.domain.models.OrderStatus
+import com.itis.tinkoff.domain.models.User
 import com.itis.tinkoff.domain.repositories.OrdersRepository
 import kotlinx.coroutines.delay
 import java.util.Date
@@ -70,6 +71,9 @@ class OrdersRepositoryImpl @Inject constructor() : OrdersRepository {
         check(sum <= (Data.currentUser?.balance ?: 0))
         Data.orders.add(OrderModel(id = id, orderItems = Data.cart.toOrderItems(), date = Date()))
         Data.currentUser?.balance = Data.currentUser?.balance?.minus(sum) ?: 0
+        Data.users.find { it.role == User.SELLER }?.let {
+            it.balance = it.balance + sum
+        }
         Data.cart.removeIf { true }
         return id
     }

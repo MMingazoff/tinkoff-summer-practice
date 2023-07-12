@@ -12,17 +12,21 @@ class ProductsRepositoryImpl @Inject constructor() : ProductsRepository {
         categories: Set<String>,
         sellers: Set<Int>,
         priceRange: IntRange?
-    ): List<ProductModel> = Data.products
+    ): List<ProductModel> = Data.products.filter { product ->
+        priceRange?.let { product.price in it } ?: true
+    }.let {
+        if (categories.isNotEmpty())
+            Data.products.filter { it.id in setOf(1, 3, 6) }
+        else if (sellers.isNotEmpty())
+            Data.products.filter { it.id >= 7 }
+        else
+            Data.products
+    }
 
     override suspend fun getProduct(id: Int): ProductModel = Data.products.first { it.id == id }
 
     override suspend fun getAllCategories(): List<String> =
-        listOf("Filter 1", "Filter 2", "Filter 3", "Filter 4")
+        listOf("Чай", "Сладости", "Средства ухода", "Крема", "Электроника")
 
-    override suspend fun getAllSellers(): List<SellerModel> = listOf(
-        SellerModel(id = 1, name = "Seller 1"),
-        SellerModel(id = 2, name = "Seller 2"),
-        SellerModel(id = 3, name = "Seller 3"),
-        SellerModel(id = 4, name = "Seller 4"),
-    )
+    override suspend fun getAllSellers(): List<SellerModel> = Data.sellers
 }

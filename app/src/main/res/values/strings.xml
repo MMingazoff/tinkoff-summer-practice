@@ -62,4 +62,5 @@
     <string name="order_date">Order date: </string>
     <string name="password_mismatch">Passwords are not equal</string>
     <string name="login_error">Something went wrong. Recheck your login and password</string>
+    <string name="logout">Log out</string>
 </resources>

@@ -2,6 +2,7 @@ package com.itis.tinkoff.data.remote
 
 import com.itis.tinkoff.data.remote.datasource.Data
 import com.itis.tinkoff.domain.models.ProfileModel
+import com.itis.tinkoff.domain.models.SellerModel
 import com.itis.tinkoff.domain.models.User
 import com.itis.tinkoff.domain.models.UserModel
 import com.itis.tinkoff.domain.repositories.UsersRepository
@@ -26,6 +27,9 @@ class UsersRepositoryImpl @Inject constructor() : UsersRepository {
     }
 
     override suspend fun register(email: String, username: String, password: String, role: User) {
+        if (role == User.SELLER) Data.sellers.add(
+            SellerModel(id = 4, name = username),
+        )
         Data.users.add(
             UserModel(
                 email = email,

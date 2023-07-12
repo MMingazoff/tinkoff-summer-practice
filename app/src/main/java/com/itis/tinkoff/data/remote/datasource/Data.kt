@@ -5,6 +5,7 @@ import com.itis.tinkoff.domain.models.OrderItemModel
 import com.itis.tinkoff.domain.models.OrderModel
 import com.itis.tinkoff.domain.models.OrderStatus
 import com.itis.tinkoff.domain.models.ProductModel
+import com.itis.tinkoff.domain.models.SellerModel
 import com.itis.tinkoff.domain.models.UserModel
 
 object Data {
@@ -76,4 +77,10 @@ object Data {
     val users = mutableListOf<UserModel>()
 
     var currentUser: UserModel? = null
+
+    val sellers = mutableListOf(
+        SellerModel(id = 1, name = "Продавец. обычный"),
+        SellerModel(id = 2, name = "Сладости.рф"),
+        SellerModel(id = 3, name = "Электро"),
+    )
 }
